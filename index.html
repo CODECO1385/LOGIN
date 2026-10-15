@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campaign Manager</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== TOP NAVIGATION ===== -->
+<header class="topbar">
+  <nav class="nav" aria-label="Main">
+    <button class="nav-btn active" data-view="login-view" type="button">Login</button>
+    <button class="nav-btn" data-view="campaign-view" type="button">Crear campaña</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ===== VIEW 1: LOGIN (can be split into login.html later) ===== -->
+<section id="login-view" class="view active">
+  <form id="login-form" class="card narrow" novalidate>
+    <h1 class="title">USER LOGIN</h1>
+
+    <div class="field">
+      <div class="input-wrap">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+        <input type="email" id="login-email" name="email" placeholder="Email" autocomplete="username">
+      </div>
+      <p class="error" data-error-for="login-email"></p>
+    </div>
+
+    <div class="field">
+      <div class="input-wrap">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+        <input type="password" id="login-password" name="password" placeholder="Password" autocomplete="current-password">
+      </div>
+      <p class="error" data-error-for="login-password"></p>
+    </div>
+
+    <button type="submit" class="btn">LOGIN</button>
+    <p class="notice" id="login-notice" role="status"></p>
+    <a href="#" class="link" id="forgot-link">Forgot your password?</a>
+  </form>
+</section>
+
+<!-- ===== VIEW 2: CREATE CAMPAIGN (can be split into campaign.html later) ===== -->
+<section id="campaign-view" class="view">
+  <div class="card wide">
+
+    <div id="campaign-success" class="success" hidden>
+      <svg class="icon big" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></svg>
+      <p>Your campaign has been submitted successfully. It will be reviewed by our team.</p>
+      <button type="button" class="btn" id="new-campaign">SUBMIT ANOTHER CAMPAIGN</button>
+    </div>
+
+    <form id="campaign-form" novalidate>
+      <h1 class="title">CREATE YOUR PROMOTIONAL CAMPAIGN</h1>
+      <p class="lead">Complete the form below to submit your promotional campaign for review.</p>
+
+      <!-- Q1 Product -->
+      <fieldset>
+        <legend>Product</legend>
+        <div class="field">
+          <label for="product_name">Product Name *</label>
+          <div class="input-wrap"><input type="text" id="product_name" name="product_name" placeholder="Classic Cheeseburger" maxlength="80"></div>
+          <p class="error" data-error-for="product_name"></p>
+        </div>
+        <div class="field">
+          <label for="product_category">Product Category *</label>
+          <div class="input-wrap">
+            <select id="product_category" name="product_category">
+              <option value="">Select a category</option>
+              <option>Hamburgers</option><option>Pizza</option><option>Tacos</option><option>Burritos</option>
+              <option>Sushi</option><option>Drinks</option><option>Desserts</option><option>Combos</option><option>Other</option>
+            </select>
+          </div>
+          <p class="error" data-error-for="product_category"></p>
+        </div>
+        <div class="field" id="category-other-wrap" hidden>
+          <label for="product_category_custom">Custom Category *</label>
+          <div class="input-wrap"><input type="text" id="product_category_custom" name="product_category_custom" maxlength="60" disabled></div>
+          <p class="error" data-error-for="product_category_custom"></p>
+        </div>
+      </fieldset>
+
+      <!-- Q2 Dates -->
+      <fieldset>
+        <legend>Campaign Duration</legend>
+        <div class="row">
+          <div class="field">
+            <label for="start_date">Campaign Start Date *</label>
+            <div class="input-wrap">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+              <input type="date" id="start_date" name="start_date">
+            </div>
+            <p class="error" data-error-for="start_date"></p>
+          </div>
+          <div class="field">
+            <label for="end_date">Campaign End Date *</label>
+            <div class="input-wrap">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+              <input type="date" id="end_date" name="end_date">
+            </div>
+            <p class="error" data-error-for="end_date"></p>
+          </div>
+        </div>
+        <p class="hint">The promotion will only be valid during the selected period.</p>
+      </fieldset>
+
+      <!-- Q3 Promotion type -->
+      <fieldset>
+        <legend>Promotion Type *</legend>
+        <div class="choices" role="radiogroup">
+          <label class="choice"><input type="radio" name="promotion_type" value="Buy One, Get One Free (2x1)"><span>Buy One, Get One Free (2x1)</span></label>
+          <label class="choice"><input type="radio" name="promotion_type" value="50% OFF"><span>50% OFF</span></label>
+          <label class="choice"><input type="radio" name="promotion_type" value="Fixed Discount"><span>Fixed Discount</span></label>
+          <label class="choice"><input type="radio" name="promotion_type" value="Free Product"><span>Free Product</span></label>
+          <label class="choice"><input type="radio" name="promotion_type" value="Custom Promotion"><span>Custom Promotion</span></label>
+        </div>
+        <p class="error" data-error-for="promotion_type"></p>
+
+        <div class="row" id="fixed-wrap" hidden>
+          <div class="field">
+            <label for="discount_amount">Discount Amount *</label>
+            <div class="input-wrap"><input type="number" id="discount_amount" name="discount_amount" min="0.01" step="0.01" placeholder="5.00" disabled></div>
+            <p class="error" data-error-for="discount_amount"></p>
+          </div>
+          <div class="field">
+            <label for="discount_currency">Currency *</label>
+            <div class="input-wrap">
+              <select id="discount_currency" name="discount_currency" disabled>
+                <option>USD</option><option>MXN</option><option>EUR</option><option>CAD</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="field" id="free-wrap" hidden>
+          <label for="free_product">Free Product *</label>
+          <div class="input-wrap"><input type="text" id="free_product" name="free_product" maxlength="80" placeholder="Regular fries" disabled></div>
+          <p class="error" data-error-for="free_product"></p>
+        </div>
+        <div class="field" id="custom-wrap" hidden>
+          <label for="custom_promotion">Describe your promotion *</label>
+          <div class="input-wrap"><input type="text" id="custom_promotion" name="custom_promotion" maxlength="120" disabled></div>
+          <p class="error" data-error-for="custom_promotion"></p>
+        </div>
+      </fieldset>
+
+      <!-- Q4 Details -->
+      <fieldset>
+        <legend>Promotion Details</legend>
+        <div class="field">
+          <label for="promotion_details">Promotion Details *</label>
+          <div class="input-wrap">
+            <textarea id="promotion_details" name="promotion_details" rows="5" maxlength="500" placeholder="Buy one Classic Cheeseburger and receive a second one free. Valid for dine-in or pickup while supplies last."></textarea>
+          </div>
+          <p class="counter"><span id="details-count">0</span> / 500</p>
+          <p class="error" data-error-for="promotion_details"></p>
+        </div>
+      </fieldset>
+
+      <!-- Q5 Messaging -->
+      <fieldset>
+        <legend>Advertising Message</legend>
+        <div class="field">
+          <label for="headline">Promotional Headline *</label>
+          <div class="input-wrap"><input type="text" id="headline" name="headline" maxlength="60" placeholder="Double the Flavor"></div>
+          <p class="error" data-error-for="headline"></p>
+        </div>
+        <div class="field">
+          <label for="slogan">Promotional Slogan *</label>
+          <div class="input-wrap"><input type="text" id="slogan" name="slogan" maxlength="80" placeholder="Two Burgers, One Great Deal!"></div>
+          <p class="error" data-error-for="slogan"></p>
+        </div>
+      </fieldset>
+
+      <!-- Q6 Image -->
+      <fieldset>
+        <legend>Campaign Image</legend>
+        <input type="file" id="campaign_image" name="campaign_image" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" hidden>
+        <label for="campaign_image" class="dropzone" id="dropzone">
+          <svg class="icon big" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="m21 16-5-5-8 8"/></svg>
+          <span>Tap to select an image</span>
+          <small>JPG, PNG or WEBP · max 5 MB</small>
+        </label>
+        <div id="preview-box" class="preview" hidden>
+          <img id="preview-img" alt="Selected campaign image preview">
+          <div class="preview-actions">
+            <label for="campaign_image" class="btn small">CHANGE</label>
+            <button type="button" class="btn small" id="remove-image">REMOVE</button>
+          </div>
+        </div>
+        <p class="error" data-error-for="campaign_image"></p>
+      </fieldset>
+
+      <!-- Q7 Business -->
+      <fieldset>
+        <legend>Business Information</legend>
+        <div class="field">
+          <label for="business_name">Business Name *</label>
+          <div class="input-wrap"><input type="text" id="business_name" name="business_name" maxlength="80"></div>
+          <p class="error" data-error-for="business_name"></p>
+        </div>
+        <div class="field">
+          <label for="owner_name">Owner's Name *</label>
+          <div class="input-wrap"><input type="text" id="owner_name" name="owner_name" maxlength="80"></div>
+          <p class="error" data-error-for="owner_name"></p>
+        </div>
+        <div class="field">
+          <label for="contact_email">Contact Email *</label>
+          <!-- name="email" lets Formspree use it as the reply-to address -->
+          <div class="input-wrap"><input type="email" id="contact_email" name="email" autocomplete="email"></div>
+          <p class="error" data-error-for="contact_email"></p>
+        </div>
+        <div class="field">
+          <label for="business_type">Business Type *</label>
+          <div class="input-wrap">
+            <select id="business_type" name="business_type">
+              <option value="">Select a type</option>
+              <option>Food Truck</option><option>Restaurant</option><option>Café</option><option>Other</option>
+            </select>
+          </div>
+          <p class="error" data-error-for="business_type"></p>
+        </div>
+        <div class="field">
+          <label for="additional_notes">Additional Notes (optional)</label>
+          <div class="input-wrap"><textarea id="additional_notes" name="additional_notes" rows="3" maxlength="500"></textarea></div>
+        </div>
+      </fieldset>
+
+      <!-- Q8 Confirmation -->
+      <div class="field">
+        <label class="check">
+          <input type="checkbox" id="confirmation" name="confirmation" value="Confirmed">
+          <span>I confirm that the promotional information provided is accurate and that I am authorized to submit this campaign.</span>
+        </label>
+        <p class="error" data-error-for="confirmation"></p>
+      </div>
+
+      <button type="submit" class="btn big-btn" id="submit-btn">SUBMIT CAMPAIGN</button>
+      <p class="notice" id="form-notice" role="status"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+<script src="script.js"></script>
+</body>
+</html>
